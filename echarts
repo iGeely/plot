@@ -1,0 +1,59 @@
+// plot_dat.js:
+
+var dat_set = {
+	'graph_1' : [
+		['index', '0', '1', '2', '3'],
+			['a.csv', 64.472, 52.184, 63.687, 63.371],
+			['b.csv', 54.472, 62.184, 63.687, 53.371],
+			['c.csv', 58.472, 64.184, 43.687, 60.371],
+	],
+};
+
+var series_data = [
+	{type: 'line', seriesLayoutBy: 'row'},
+	{type: 'line', seriesLayoutBy: 'row'},
+	{type: 'line', seriesLayoutBy: 'row'},
+];
+
+
+// plot.html:  
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title> ECharts </title>
+    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script> 
+    <script language='javascript' type='text/javascript'  src='plot_dat.js'></script>
+</head>
+<body>
+
+<div id='graph_1' style='width: 50%;height:400px;'></div>
+<script language='javascript' type='text/javascript'>
+    var div_id = "graph_1";
+    var x = document.getElementById(div_id);
+    var myChart = echarts.init(x, 'shine');
+    var option = {
+        legend: {},
+        tooltip: { trigger: 'axis', },
+        dataset: { source: dat_set[div_id] },
+        xAxis: {type: 'category', 
+            /*splitLine: {
+                show: true
+            },*/
+        },
+        //yAxis: {gridIndex: 0, min: 'dataMin',},
+        yAxis: {gridIndex: 0, 
+            min: function(value) {
+                return value.min > 1 ? Math.floor(value.min * 0.8) : (value.min * 0.99).toFixed(3);
+            },
+        },
+        //grid: {top: '15%'},
+        dataZoom: [{type: 'slider'}, {type: 'inside'}],
+        series: series_data
+    };
+
+    myChart.setOption(option);
+</script>
+</body>
+</html>
