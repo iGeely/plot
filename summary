@@ -1,0 +1,5 @@
+常用绘图工具：
+
+传统的 gnuplot,
+matlib, python 中的 matplotlib。缺点十分明显： 太慢了！
+web 前端绘图： ECharts. 看起来比较炫。
